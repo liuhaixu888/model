@@ -1,0 +1,132 @@
+//
+//  PrefixHeader.pch
+//  test
+//
+//  Created by tdem on 2021/12/26.
+//  Copyright © 2021 tdem. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+#import "Masonry.h"
+#import "UIColor+ColorChange.h"
+#import "SDWebImageCompat.h"
+#import "MJRefresh.h"
+#import "UIImageView+WebCache.h"
+#import "NSObject+Common.h"
+#import "NSString+Common.h"
+#import "NSString+Emoji.h"
+#import "UIButton+New.h"
+#import "UIDevice+Common.h"
+#import "UIImage+Common.h"
+#import "UIView+Common.h"
+#import "UIView+Addition.h"
+#import "UIView+AutoLayout.h"
+#import "NSDate+Common.h"
+#import "NSDictionary+KVC.h"
+#import "UIViewController+Navigation.h"
+#import "AuthData.h"
+#import "MJExtension.h"
+#import "AFNetworking.h"
+#import "DrHttpManager.h"
+
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+//获取随机数
+#define Random(from, to) (int)(from + (arc4random() % (to - from + 1))); //+1,result is [from to]; else is [from, to)!!!!!!!
+#define ARC4RANDOM_MAX (0x100000000 * 20)
+#define IS_IPHONE            (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define SCREEN_HEIGHT        ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_WIDTH         ([[UIScreen mainScreen] bounds].size.width)
+#define WINDOW_MAX_LENGTH    (MAX(SCREEN_WIDTH, SCREEN_WIDTH))
+#define ShortSystemVersion   [[UIDevice currentDevice].systemVersion floatValue]
+#define IS_IOS_6             (ShortSystemVersion < 7)
+#define IS_IOS_7             (ShortSystemVersion >= 7 && ShortSystemVersion < 8)
+#define IS_IOS_8             (ShortSystemVersion >= 8)
+
+#define IS_IPHONE_4          (IS_IPHONE && WINDOW_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5          (IS_IPHONE && WINDOW_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6          (IS_IPHONE && WINDOW_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P         (IS_IPHONE && WINDOW_MAX_LENGTH == 736.0)
+#define userDefaults        [NSUserDefaults standardUserDefaults]
+#define KeyWindow           [[[UIApplication sharedApplication] delegate] window]
+#define WindowZoomScale     (kScreenWidth/320.f)
+#define ResourcePath        [[NSBundle mainBundle] resourcePath]    //获取自定义文件的bundle路径
+#define DocumentPath        [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]    //获取Document文件夹的路径
+#define ResourcePath        [[NSBundle mainBundle] resourcePath]    //获取自定义文件的bundle路径
+#define ImageNamed(name)    [UIImage imageWithContentsOfFile:[ResourcePath stringByAppendingPathComponent:name]]
+#define ImageNamed(name)    [UIImage imageWithContentsOfFile:[ResourcePath stringByAppendingPathComponent:name]]
+#define RGBCOLOR(r,g,b)     [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1]         //RGB进制颜色值
+#define RGBACOLOR(r,g,b,a)  [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]       //RGBA进制颜色值
+#define HexColor(hexValue)  [UIColor colorWithRed:((float)(((hexValue) & 0xFF0000) >> 16))/255.0 green:((float)(((hexValue) & 0xFF00) >> 8))/255.0 blue:((float)((hexValue) & 0xFF))/255.0 alpha:1]   //16进制颜色值，如：#000000 , 注意：在使用的时候hexValue写成：0x000000
+#define kFont_10 [UIFont systemFontOfSize:10]
+#define kFont_11 [UIFont systemFontOfSize:11]
+#define kFont_12 [UIFont systemFontOfSize:12]
+#define kFont_13 [UIFont systemFontOfSize:13]
+#define kFont_14 [UIFont systemFontOfSize:14]
+#define kFont_15 [UIFont systemFontOfSize:15]
+#define kFont_16 [UIFont systemFontOfSize:16]
+#define kFont_17 [UIFont systemFontOfSize:17]
+#define kFont_18 [UIFont systemFontOfSize:18]
+#define kFont_19 [UIFont systemFontOfSize:19]
+#define kFont_20 [UIFont systemFontOfSize:20]
+#define kFont_21 [UIFont systemFontOfSize:21]
+
+#define _loginUser            [AuthData loginUser]
+
+#define ThemColor            HexColor(0xaa2d1b)
+#define KY_TINT_COLOR          HexColor(0xffab18)   /* 纯黄色 */
+#define _applicationContext [ApplicationContext sharedContext]
+
+//主界面 RootViewController
+#define ROOT_VC  _applicationContext.rootViewController
+
+//首页面 TabViewController
+#define TAB_VC   _applicationContext.homeViewController
+#define screen_height  self.view.frame.size.height
+#define ZYF_kScreenBounds [UIScreen mainScreen].bounds
+#define kScreenWidth [UIScreen mainScreen].bounds.size.width
+#define kScreenHeight [UIScreen mainScreen].bounds.size.height
+#define WeakSelf(weakSelf) __weak typeof(self) weakSelf = self;
+#define UserDefaultKey_LoginUser                           @"LoginUser"                         //当前登录用户
+#define UserDefaultKey_MiPushInfo                          @"MiPushInfo"                       //注册的小米Push的信息
+#define UserDefaultKey_devFeedback                         @"devFeedback"                       //是否有新的反馈信息
+#define UMFBGetFinishedNotification                             @"UMFBGetFinishedNotification"          //友盟完成数据刷新通知
+#define UMFBPostFinishedNotification                            @"UMFBPostFinishedNotification"         //友盟上传数据完成通知
+
+#define Notification_ApplicationActive                          @"ApplicationActive"                    //应用激活
+#define Notification_LoginComplete                              @"loginComplete"                        //用户完成登录请求
+#define Notification_LoginSuccess                               @"loginSuccess"                         //用户登录成功，可以开始刷新其他界面数据
+#define Notification_LogoutSuccess                              @"LogoutSuccess"                        //用户退出登录
+
+#define Notification_RefreshUserInfo                            @"RefreshUserInfo"                      //刷新用户信息
+
+#define Notification_UpdateAlbum                                @"updateAlbum"                          //更新相册
+#define Notification_LoginRegSwitch                              @"loginRegSwitch"                       //登录注册切换
+
+#define UserDefaultKey_plateData        @"plateData"
+
+
+
+//宽度对比的比例值
+#define Width_biLi kScreenWidth/375
+//按比例计算后的值得大小
+#define Scale(size) Width_biLi*size
+//定义枚举类型
+typedef enum TimeStyle{
+    YYYYMMDD,
+    HHMMSS,
+    YYYYMMDDHHMMSS,
+    MMSS,
+    HHMM,
+    YYYYMMDDHHMM,
+    YYYYMM,
+    YYYY,
+    MM,
+    DD
+}TimeState;
+
+
+
+#endif /* PrefixHeader_pch */
